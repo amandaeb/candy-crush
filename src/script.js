@@ -44,13 +44,13 @@ let squareIdBeingReplaced
         console.log(colorBeingDragged)
         console.log(this.id, 'dragstart')
     }
-    function dragEnd(){
-        console.log(this.id, 'dragend')
-    }
-    function dragOver(){
+
+    function dragOver(e){
+        e.preventDefault()
         console.log(this.id, 'dragOver')
     }
-    function dragEnter(){
+    function dragEnter(e){
+        e.preventDefault()
         console.log(this.id, 'dragEnter')
     }
     function dragLeave(){
@@ -59,7 +59,25 @@ let squareIdBeingReplaced
     function dragDrop(){
         console.log(this.id, 'dragdrop');
         colorBeingReplaced = this.style.backgroundColor;
-        squareIdBeingReplaced = parseInt(this.id)
-        squares[squareBeingDragged].style.backgroundColor = colorBeingReplaced;
+        squareIdBeingReplaced = parseInt(this.id);
+        this.style.backgroundColor = colorBeingDragged;
+        squares[squareIdBeingDragged].style.backgroundColor = colorBeingReplaced;
+    }
+
+    function dragEnd(){
+        console.log(this.id, 'dragend')
+        //what is a valid move
+        let validMoves = [
+            squareIdBeingDragged -1, squareIdBeingDragged -width, squareIdBeingDragged +1, 
+            squareIdBeingDragged +width
+        ]
+        let validMove = validMoves.includes(squareIdBeingReplaced);
+        
+        if(squareIdBeingReplaced && validMove){
+            squareIdBeingReplaced = null
+        }else if (squareIdBeingReplaced && !validMove){
+            squares[squareIdBeingReplaced].style.backgroundColor = colorBeingReplaced;
+            squares[squareIdBeingDragged].style.backgroundColor = colorBeingDragged;
+        }else squares[squareIdBeingDragged].style.backgroundColor = colorBeingDragged;
     }
 })
