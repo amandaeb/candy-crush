@@ -80,4 +80,14 @@ let squareIdBeingReplaced
             squares[squareIdBeingDragged].style.backgroundColor = colorBeingDragged;
         }else squares[squareIdBeingDragged].style.backgroundColor = colorBeingDragged;
     }
+
+    //checking for matches
+    //check for row of three 20.32
+    function checkRowForThree(){
+        for (i = 0; i < 61; i++){
+            let rowOfThree = [i, i+1, i+2]
+            let decidedColor = squares[i].style.backgroundColor;
+            const isBlank = squares[i].style.backgroundColor === '';
+        }
+    }
 })
